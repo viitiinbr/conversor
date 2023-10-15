@@ -17,21 +17,34 @@ layout = [
                 psg.InputText('', key='temp', ),
         ],
         [
-                psg.Button('Converter'), psg.Button('Canlcelar'),
+                psg.Button('Converter'),
+                psg.Button('Canlcelar'),
+                psg.Button('Limpar'),
                 psg.Text("", key='temp_convertida'),
         ],
 ]
 
 janela = psg.Window('Conversor de Temperatura', layout)
 
+def limpar():
+        janela['temp'].update("")
+        janela['cel_fah'].update(True)
+        janela['temp_convertida'].update("")
+
 while True:
         evento, valores = janela.read()
 
         if evento == psg.WIN_CLOSED or evento == 'Canlcelar':
                 break
+        elif evento == 'Limpar':
+                limpar()
         else:
                 # print(valores)
-                temp = valores['temp']
-                fah = cel_fah(int(temp))
-                janela['temp_convertida'].update(f'{temp}ºC = {fah}ºF')
+                if valores['cel_fah']:
+                        temp = cel_fah(float(valores['temp']))
+                        janela['temp_convertida'].update(f'{valores["temp"]}ºC = {temp}ºF')
+                else:
+                        temp = fah_cel(float(valores['temp']))
+                        janela['temp_convertida'].update(f'{valores["temp"]}ºF = {temp}ºC')
+                # limpar()
 janela.close()
