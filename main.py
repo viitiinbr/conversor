@@ -3,7 +3,7 @@ from conversor import cel_fah
 # Conversor de temperatura
 print("\n\t\t\t -- Conversor de Temperatura -- \n\n")
 
-temp = int(input("Informe a temperatura: "))
+temp = float(input("Informe a temperatura: "))
 
 fah = cel_fah(temp)
 
